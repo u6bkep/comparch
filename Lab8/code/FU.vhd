@@ -1,0 +1,36 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+--use IEEE.numeric_bit.all;
+-- Fowarding Unit
+
+entity FU is
+    port (rt_EX,rs_EX, WriteRegister_MEM, WriteRegister_WB : in bit_vector(4 downto 0);
+          RegWrite_MEM, RegWrite_WB : in bit;
+	  Mux_aluA, Mux_dataB : out bit_vector(1 downto 0));
+end FU;
+
+architecture dataflow of FU is
+--   signal RDCompareZero, RDCompareRT,
+    
+begin  -- dataflow
+      
+   
+      Mux_aluA <= "10" when RegWrite_MEM = '1' and
+                      (WriteRegister_MEM  /= "00000") and 
+                      (WriteRegister_MEM = rs_EX) else
+
+                  "01" when (RegWrite_WB = '1')  and 
+                      (WriteRegister_WB /= "00000") and 
+                      (WriteRegister_WB = rs_EX) else
+                  "00";
+                 
+  
+      Mux_dataB <= "10" when (RegWrite_WB = '1') and 
+                        (WriteRegister_MEM  /= "00000") and 
+                        (WriteRegister_MEM = rt_EX) else
+
+                  "01" when (RegWrite_WB = '1')  and 
+                       (WriteRegister_WB /= "00000") and 
+                       (WriteRegister_WB = rt_EX) else
+                  "00";
+end dataflow;   

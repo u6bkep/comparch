@@ -1,0 +1,32 @@
+-- Fowarding Unit sub unit
+library IEEE;
+use IEEE.std_logic_1164.all;
+use work.mipspack.all;
+
+entity FUSub is
+    port (reg, WriteRegister_MEM, WriteRegister_WB : in bit_vector(4 downto 0);
+          RegWrite_MEM, RegWrite_WB : in bit;
+	  Mux_data : out bit_vector(1 downto 0));
+end FUSub;
+
+architecture dataflow of FUSub is
+signal sig1,sig2,sig3,sig4,sig5: bit;
+    
+begin  -- dataflow
+      
+    sig4_equator : equator
+    port map(WriteRegister_MEM, reg, sig4);
+ 
+    sig3_equator: equator
+    port map(WriteRegister_WB, reg, sig3);
+
+    sig1 <= (RegWrite_MEM AND sig4);
+    sig2 <= (RegWrite_WB AND sig3);
+
+    sig5 <= (NOT(sig1) AND sig2);
+
+
+    --output
+    Mux_data <= sig5 & sig1 after 1 ns;
+
+end dataflow;
