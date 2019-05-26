@@ -67,32 +67,32 @@ force instruction_memory/memory(2) 16#00
 force instruction_memory/memory(3) 16#00
 #
 # sw+ $2, ($20)   = 0xFE820000
-force instruction_memory/memory(0) 16#FE
-force instruction_memory/memory(1) 16#81
-force instruction_memory/memory(2) 16#00
-force instruction_memory/memory(3) 16#00
+force instruction_memory/memory(4) 16#FE
+force instruction_memory/memory(5) 16#82
+force instruction_memory/memory(6) 16#00
+force instruction_memory/memory(7) 16#00
 #
 # sw+ $3, ($20)   = 0xFE830000
-force instruction_memory/memory(0) 16#FE
-force instruction_memory/memory(1) 16#83
-force instruction_memory/memory(2) 16#00
-force instruction_memory/memory(3) 16#00
+force instruction_memory/memory(8) 16#FE
+force instruction_memory/memory(9) 16#83
+force instruction_memory/memory(10) 16#00
+force instruction_memory/memory(11) 16#00
 #
 # NOOP   = 0x00000000
-force instruction_memory/memory(0) 16#00
-force instruction_memory/memory(1) 16#00
-force instruction_memory/memory(2) 16#00
-force instruction_memory/memory(3) 16#00
+force instruction_memory/memory(12) 16#00
+force instruction_memory/memory(13) 16#00
+force instruction_memory/memory(14) 16#00
+force instruction_memory/memory(15) 16#00
 #
 # sw+ $4, ($20)   = 0xFE840000
-force instruction_memory/memory(0) 16#FE
-force instruction_memory/memory(1) 16#84
-force instruction_memory/memory(2) 16#00
-force instruction_memory/memory(3) 16#00
+force instruction_memory/memory(16) 16#FE
+force instruction_memory/memory(17) 16#84
+force instruction_memory/memory(18) 16#00
+force instruction_memory/memory(19) 16#00
 #
 # sw+ $5, ($20)   = 0xFE850000
-force instruction_memory/memory(0) 16#FE
-force instruction_memory/memory(1) 16#85
-force instruction_memory/memory(2) 16#00
-force instruction_memory/memory(3) 16#00
+force instruction_memory/memory(20) 16#FE
+force instruction_memory/memory(21) 16#85
+force instruction_memory/memory(22) 16#00
+force instruction_memory/memory(23) 16#00
 #
