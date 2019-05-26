@@ -1,6 +1,6 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
-
+--use IEEE.numeric_bit.all;
 -- Fowarding Unit
 
 entity FU is
@@ -10,14 +10,27 @@ entity FU is
 end FU;
 
 architecture dataflow of FU is
-signal sig1,sig2,sig3,sig4,sig5 : std_logic;
+--   signal RDCompareZero, RDCompareRT,
     
 begin  -- dataflow
       
-     Mux_aluA_FUSub : FUSub
-     port map(rt_EX, WriteRegister_MEM, WriteRegister_WB, RegWrite_MEM, RegWrite_WB, Mux_aluA);
+   
+      Mux_aluA <= "10" when bit_vector(RegWrite_MEM) and
+                      (WriteRegister_MEM  /= "00000") and 
+                      (WriteRegister_MEM = rs_EX) else
 
-     Mux_dataB_FUSub : FUSub
-     port map(rs_EX, WriteRegister_MEM, WriteRegister_WB, RegWrite_MEM, RegWrite_WB, Mux_dataB);
+                  "01" when bit_vector(RegWrite_WB)  and 
+                      (WriteRegister_WB /= "00000") and 
+                      (WriteRegister_WB = rs_EX) else
+                  "00";
+                 
+  
+      Mux_dataB <= "10" when bit_vector(RegWrite_MEM) and 
+                        (WriteRegister_MEM  /= "00000") and 
+                        (WriteRegister_MEM = rt_EX) else
 
-end dataflow;
+                  "01" when bit_vector(RegWrite_WB)  and 
+                       (WriteRegister_WB /= "00000") and 
+                       (WriteRegister_WB = rt_EX) else
+                  "00";
+end dataflow;   

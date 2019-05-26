@@ -32,6 +32,17 @@ add wave MemtoReg_MEM_WB RegWrite_MEM_WB
 add wave -hex ALUResult_MEM_WB WriteRegister_MEM_WB RegWriteData
 add wave -hex the_registers/registers 
 
+add wave -position 19  sim:/pipelined/dataB
+
+add wave -position end  sim:/pipelined/forwardingUnit/rt_EX
+add wave -position end  sim:/pipelined/forwardingUnit/rs_EX
+add wave -position end  sim:/pipelined/forwardingUnit/WriteRegister_MEM
+add wave -position end  sim:/pipelined/forwardingUnit/WriteRegister_WB
+add wave -position end  sim:/pipelined/forwardingUnit/RegWrite_MEM
+add wave -position end  sim:/pipelined/forwardingUnit/RegWrite_WB
+add wave -position end  sim:/pipelined/forwardingUnit/Mux_aluA
+add wave -position end  sim:/pipelined/forwardingUnit/Mux_dataB
+
 # 300-ns, 50% duty cycle clock
 force clock 1 0, 0 150 ns -repeat 300 ns
 ##########
@@ -65,8 +76,8 @@ force -deposit the_registers/registers(23) 16#00000000
 # Put constant needed by program into data memory
 # put 0xe000a003 at address 0x00000008:
 #
-force data_memory/memory(0) 16#00
-force data_memory/memory(4) 16#08
+force -deposit data_memory/memory(0) 16#00
+force -deposit data_memory/memory(7) 16#08
 
 #####################################
 # Put program into instruction memory
@@ -135,8 +146,8 @@ force instruction_memory/memory(34) 16#20
 force instruction_memory/memory(35) 16#20
 #
 # lw $4, ($4) 
-#                 = 0xAC840000
-force instruction_memory/memory(36) 16#AC
+#                 = 0x8C840000
+force instruction_memory/memory(36) 16#8C
 force instruction_memory/memory(37) 16#84
 force instruction_memory/memory(38) 16#00
 force instruction_memory/memory(39) 16#00

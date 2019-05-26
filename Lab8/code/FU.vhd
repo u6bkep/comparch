@@ -25,7 +25,7 @@ begin  -- dataflow
                   "00";
                  
   
-      Mux_dataB <= "10" when (RegWrite_WB = '1') and 
+      Mux_dataB <= "10" when (RegWrite_MEM = '1') and 
                         (WriteRegister_MEM  /= "00000") and 
                         (WriteRegister_MEM = rt_EX) else
 

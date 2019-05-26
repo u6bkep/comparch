@@ -231,11 +231,8 @@ End Process;
     ALUResult_EX_MEM <= EX_MEM(68 downto 37);
     
     data_memory : dmem
-	
 	 port map (clock,MemWrite_EX_MEM,MemRead_EX_MEM,ALUResult_EX_MEM,
 	 data_to_mem,MemReadData);   
-	 
-	 
 	 ALUresult_MEM_WB <= MEM_WB(68 downto 37);
 	 MemReadData_MEM_WB <= MEM_WB(36 downto 5);
 	   
@@ -270,7 +267,7 @@ End Process;
 
     SWp_ALUresault_mux : mux32
     port map(SWp,
-        alua_p4_EX_MEM, ALUResult_EX_MEM,
+        ALUResult_EX_MEM, alua_p4_EX_MEM,
         ALUResult_EX_MEM_2);
 
     alua_p4_adder : add
