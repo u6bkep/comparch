@@ -15,7 +15,7 @@ architecture dataflow of FU is
 begin  -- dataflow
       
    
-      Mux_aluA <= "10" when RegWrite_MEM = '1' and
+      Mux_aluA <= "10" when (RegWrite_MEM = '1') and
                       (WriteRegister_MEM  /= "00000") and 
                       (WriteRegister_MEM = rs_EX) else
 
