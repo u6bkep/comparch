@@ -22,6 +22,15 @@ add wave ALUfunc
 add wave -hex ALUa ALUb ALUresult WriteRegister 
 add wave -hex sim:/pipelined/SWp_ID_EX
 
+add wave -hex sim:/pipelined/forwardingUnit/rt_EX
+add wave -hex sim:/pipelined/forwardingUnit/rs_EX
+add wave -hex sim:/pipelined/forwardingUnit/WriteRegister_MEM
+add wave -hex sim:/pipelined/forwardingUnit/WriteRegister_WB
+add wave -hex sim:/pipelined/forwardingUnit/RegWrite_MEM
+add wave -hex sim:/pipelined/forwardingUnit/RegWrite_WB
+add wave -hex sim:/pipelined/forwardingUnit/Mux_aluA
+add wave -hex sim:/pipelined/forwardingUnit/Mux_dataB
+
 add wave -hex sim:/pipelined/forwardA/Sel
 add wave -hex sim:/pipelined/forwardA/Din0
 add wave -hex sim:/pipelined/forwardA/Din1

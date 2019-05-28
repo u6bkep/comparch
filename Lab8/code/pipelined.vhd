@@ -208,7 +208,7 @@ End Process;
 		  WriteRegister_intermediate);
 
     reg_mux_2 : mux5
-    port map(SWp, 
+    port map(SWp_ID_EX, 
         WriteRegister_intermediate, ID_EX(9 downto 5),
         WriteRegister);
 
@@ -258,15 +258,16 @@ End Process;
             EX_MEM(102), MEM_WB(69), Mux_aluA, Mux_dataB);
 
     forwardA : mux4x32
-    port map(Mux_aluA, ID_EX(105 downto 74), RegWriteData, ALUResult_EX_MEM, ALUResult_EX_MEM,
+    port map(Mux_aluA, 
+             ID_EX(105 downto 74), RegWriteData, ALUResult_EX_MEM_2, ALUResult_EX_MEM_2,
              ALUa);
 
     forwardB : mux4x32
-    port map(Mux_dataB, ID_EX(73 downto 42), RegWriteData, ALUResult_EX_MEM, ALUResult_EX_MEM,
+    port map(Mux_dataB, ID_EX(73 downto 42), RegWriteData, ALUResult_EX_MEM_2, ALUResult_EX_MEM_2,
             dataB);            
 
     SWp_ALUresault_mux : mux32
-    port map(SWp,
+    port map(SWp_EX_MEM,
         ALUResult_EX_MEM, alua_p4_EX_MEM,
         ALUResult_EX_MEM_2);
 
