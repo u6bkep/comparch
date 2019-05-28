@@ -20,7 +20,21 @@ add wave -hex  sim:/pipelined/SWp
 add wave ALUOp_ID_EX ALUSrc_ID_EX RegDst_ID_EX
 add wave ALUfunc
 add wave -hex ALUa ALUb ALUresult WriteRegister 
-add wave -hex  sim:/pipelined/SWp_ID_EX\
+add wave -hex sim:/pipelined/SWp_ID_EX
+
+add wave -hex sim:/pipelined/forwardA/Sel
+add wave -hex sim:/pipelined/forwardA/Din0
+add wave -hex sim:/pipelined/forwardA/Din1
+add wave -hex sim:/pipelined/forwardA/Din2
+add wave -hex sim:/pipelined/forwardA/Din3
+add wave -hex sim:/pipelined/forwardA/Dout
+
+add wave -hex sim:/pipelined/forwardB/Sel
+add wave -hex sim:/pipelined/forwardB/Din0
+add wave -hex sim:/pipelined/forwardB/Din1
+add wave -hex sim:/pipelined/forwardB/Din2
+add wave -hex sim:/pipelined/forwardB/Din3
+add wave -hex sim:/pipelined/forwardB/Dout
 
 
 ## MEM Stage
@@ -35,7 +49,6 @@ add wave MemtoReg_MEM_WB RegWrite_MEM_WB
 add wave -hex ALUResult_MEM_WB WriteRegister_MEM_WB RegWriteData
 add wave -hex the_registers/registers 
 
-add wave -position 25  sim:/pipelined/ALUResult_EX_MEM_2
 
 # 300-ns, 50% duty cycle clock
 force clock 1 0, 0 150 ns -repeat 300 ns
@@ -58,6 +71,8 @@ force -deposit the_registers/registers(5) 16#00000009
 
 #####################################
 # Put program into instruction memory
+
+
 #
 # sw+ $1, ($20)
 #                 = 0xFE810000

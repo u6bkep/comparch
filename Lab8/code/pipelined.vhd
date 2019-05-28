@@ -90,7 +90,7 @@ architecture struct of pipelined is
     signal BranchPC_EX_MEM: bit_vector(31 downto 0);
     signal SWp_EX_MEM : bit;
     signal data_to_mem: bit_vector(31 downto 0);
-    alias alua_p4_EX_MEM : bit_vector(31 downto 0) is EX_MEM(138 downto 107);
+    alias alua_p4_EX_MEM : bit_vector(31 downto 0) is EX_MEM(139 downto 108);
     
     --Write back (WB)
     signal MemtoReg_MEM_WB : bit;
@@ -111,7 +111,7 @@ SWp_ID_EX      <= ID_EX(147);
 MemWrite_EX_MEM  <= EX_MEM(106);   
 MemRead_EX_MEM   <= EX_MEM(105);  
 Branch_EX_MEM    <= EX_MEM(104);
-SWp_EX_MEM       <= EX_MEM(139);
+SWp_EX_MEM       <= EX_MEM(107);
     
 MemtoReg_MEM_WB <= MEM_WB(70);   
 RegWrite_MEM_WB <= MEM_WB(69);
@@ -257,11 +257,11 @@ End Process;
     port map(ID_EX(4 downto 0), ID_EX(9 downto 5), EX_MEM(4 downto 0), MEM_WB(4 downto 0),
             EX_MEM(102), MEM_WB(69), Mux_aluA, Mux_dataB);
 
-    aluA_mux : mux4x32
+    forwardA : mux4x32
     port map(Mux_aluA, ID_EX(105 downto 74), RegWriteData, ALUResult_EX_MEM, ALUResult_EX_MEM,
              ALUa);
 
-    datab_mux : mux4x32
+    forwardB : mux4x32
     port map(Mux_dataB, ID_EX(73 downto 42), RegWriteData, ALUResult_EX_MEM, ALUResult_EX_MEM,
             dataB);            
 
