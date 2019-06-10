@@ -28,22 +28,22 @@ alias tag_R : bit_vector(9 downto 0) is cacheM_data_R(42 downto 32);
 alias data_R: bit_vector(31 downto 0) is cacheM_data_R(31 downto 0);
 alias tag_W : bit_vector(9 downto 0) is cacheM_data_W(42 downto 32):
 alias data_W: bit_vector(31 downto 0)is cacheM_data_W(31 downto 0);
-
+alias tag_PC: bit_vector(9 downto 0) is current_PC(15 downto 6);
 begin  -- behave
-imData <= instrIn;    
-indexOut <= instrIn(5 downto 2);
-tagOut <= instrIn(15 downto 6);
 
-tagCompare <= '1' when tagIn = instrIn(15 downto 6) else '0';
-hit <= tagCompare and validIn;
+tag_w <= tag_PC;
+tagCompare <= '1' when tag_R = tag_w;
+hit <= (valid and tagCompare);
 
-instrucOut <= imDataIn when hit = '1' else
-	             "00000000000000000000000000000000";
+instruction <=  data_R when hit = '1' else
+                     "00000000000000000000000000000000";
+PC_WE <= not hit;
+
+--instrucOut <= imDataIn when hit = '1' else
+	--             "00000000000000000000000000000000";
 
 --pcEnableOut <= '1' when hit = '1' else
 --	                    '0';
-
-pcEnableOut <= not hit;
 
 --process(clk)
 --	begin
@@ -70,14 +70,14 @@ PROCESS (clk)
 BEGIN
 	if clk = '1' THEN
 		IF timer = "10100" THEN timer <= "00000";
-		ELSIF timer = "00000" and hit = '1' then Timer <= "00000";
+		ELSIF timer = "00000" and hit = '1' then timer <= "00000";
 		ELSE timer <= timer + 1;
 		END IF;
 	END IF;
 END PROCESS;
 
 
-     WE <= '1' WHEN timer = "10100" ELSE '0';
+     cacheM_WE  <= '1' WHEN timer = "10100" ELSE '0';
 
 end behave;
 
