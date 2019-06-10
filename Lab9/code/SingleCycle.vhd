@@ -39,13 +39,16 @@ architecture struct of SingleCycle is
     signal ReadData2: bit_vector(31 downto 0);     -- Read data 2 register output
     signal MemReadData : bit_vector(31 downto 0);  -- Read data output of memory
     signal RegWriteData : bit_vector(31 downto 0); -- Write data input to registers
+    signal imData : bit_vector(31 downto 0);
+    signal imAddress : bit_vector(31 downto 0);
+    signal pcWE : bit;
 
 begin  -- struct
 
     program_counter : pc
-	port map (clock,NextPC,CurrentPC);
+	port map (clock,NextPC,CurrentPC, pcWE);
     instruction_memory : imem
-	port map (CurrentPC,Instruction);
+	port map (imAddress,imData);
     pc_adder : add
 	port map (CurrentPC,Four,IncrPC);
     offset_shifter : sl2
@@ -81,6 +84,9 @@ begin  -- struct
 	port map (Instruction(5 downto 0),ALUOp,ALUfunc);
     and_gate : and2
 	port map (Branch,Zero,PCSrc);
+
+    cache_memory : cache
+    port map (clock, CurrentPC, imData, imAddress, Instruction, pcWE);
 
 end struct;
 
