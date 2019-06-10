@@ -39,7 +39,7 @@ hit <= (valid and tagCompare);
 
 instruction <=  data_R when hit = '1' else
                      "00000000000000000000000000000000";
-PC_WE <= not hit;
+PC_WE <= hit;
 
 cacheM_Address <= index;
 data_W <= iMem_data;

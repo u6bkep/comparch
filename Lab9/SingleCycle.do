@@ -14,7 +14,12 @@ add wave MemWrite
 add wave -hex ReadData2
 add wave -hex the_registers/registers instruction_memory/memory data_memory/memory
 
-
+add wave sim:/singlecycle/pcWE
+add wave -hex sim:/singlecycle/imData
+add wave -hex sim:/singlecycle/imAddress
+add wave sim:/singlecycle/cache_memory/cacheM_WE
+add wave -hex   sim:/singlecycle/cache_memory/cacheM_data_R
+add wave -hex  sim:/singlecycle/cache_memory/cacheM_data_W
 
 # 300-ns, 50% duty cycle clock
 force clock 1 0, 0 150 ns -repeat 300 ns
