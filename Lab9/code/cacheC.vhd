@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 
 entity cacheC is
     port (clk, validIn, writeEnable:  in bit;
-    	tagIn: in bit_vector(9 downto 0);
+      tagIn: in bit_vector(9 downto 0);
         instrIn, imDataIn: in bit_vector(31 downto 0);
         
      cacheOut, pcEnableOut, validOut: out bit;
@@ -31,13 +31,13 @@ tagCompare <= '1' when tagIn = instrIn(15 downto 6);
 hit <= tagCompare and validIn;
 
 instrucOut <= imDataIn when hit = '1' else
-	             "00000000000000000000000000000000";
+               "00000000000000000000000000000000";
 
 pcEnableOut <= '1' when hit = '1' else
-	                    '0';
+                      '0';
 process(clk)
-	begin
-	if clk = '1' and hit = '1' then
+  begin
+  if clk = '1' and hit = '1' then
            cacheOut <='0';
            timer <= "00000";
            validOut <= '0';
@@ -56,4 +56,3 @@ process(clk)
 end process;
 
 end behave;
-

@@ -5,16 +5,6 @@ use ieee.std_logic_unsigned.all;
 
 entity cacheM is
     
-<<<<<<< HEAD
-    port (index : in bit_vector(3 downto 0);
-        TagIn : in bit_vector(9 downto 0);
-        WE : in bit;
-        InstIn : bit_vector(31 downto 0);
-
-    InstOut : out bit_vector(31 downto 0);
-        TagOut : out bit_vector (9 downto 0);
-        Valid : out bit);
-=======
     port (
           indexIn : in bit_vector(3 downto 0);
           tagIn : in bit_vector(9 downto 0);
@@ -25,7 +15,6 @@ entity cacheM is
           InstrOut: out bit_vector(31 downto 0);
           tagOut: out bit_vector(9 downto 0);
           validOut: out bit);  
->>>>>>> Ethan
 
 end cacheM;
 
@@ -61,19 +50,7 @@ begin  -- behave
         if clk = '1' and WE = '1' then
         memory(intAddress)  <= '1' & tagIn & InstIn;              
 
-<<<<<<< HEAD
-
-
-begin  -- array
-    intAddress <= conv_integer(to_stdlogicvector(ReadAddress(7 downto 0)));
-    InstOut <= memory(intAddress)(31 downto 0);
-    TagOut <= memory(intAddress)(41 downto 32);
-    Valid <= memory(intAddress)()
-
-    after 5 ns;
-=======
         end if;
     end process;
         
->>>>>>> Ethan
 end behave;
