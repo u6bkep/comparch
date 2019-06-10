@@ -8,7 +8,7 @@ entity cacheC is
     	tagIn: in bit_vector(9 downto 0);
         instrIn, imDataIn: in bit_vector(31 downto 0);
         
-     WE, pcEnableOut, validOut: out bit;
+     WE, pcEnableOut: out bit;
      indexOut: out bit_vector(3 downto 0);
      tagOut: out bit_vector(9 downto 0);             
     instrucOut, imData : out bit_vector(31 downto 0));
@@ -33,25 +33,39 @@ instrucOut <= imDataIn when hit = '1' else
 
 pcEnableOut <= '1' when hit = '1' else
 	                    '0';
-process(clk)
-	begin
-	if clk = '1' and hit = '1' then
-           WE <='0';
-           timer <= "00000";
-           validOut <= '0';
-           end if;
+--process(clk)
+--	begin
+--	if clk = '1' and hit = '1' then
+--           WE <='0';
+ --          timer <= "00000";
+  --         validOut <= '0';
+ --          end if;
 
-    if clk = '1' and hit = '0' then
-            timer <= timer + 1;
-            WE <= '0';
-            validOut <= '0';
-            end if;
-    if timer = "10100" then
-           WE <= '1';
-           timer <= "00000";
-           validOut <= '1';
-           end if;
-end process;
+ --   if clk = '1' and hit = '0' then
+  --          timer <= timer + 1;
+  --          WE <= '0';
+  --         validOut <= '0';
+    --        end if;
+   -- if timer = "10100" then
+        --   WE <= '1';
+  --
+         --  validOut <= '1';
+         --  end if;
+--end process;
+
+
+PROCESS (clk)
+BEGIN
+	if clk = '1' THEN
+		IF timer = "10100" THEN timer <= "00000";
+		ELSIF timer = "00000" and hit = '1' then Timer <= "00000";
+		ELSE timer <= timer + 1;
+		END IF;
+	END IF;
+END PROCESS;
+
+
+     WE <= '1' WHEN timer = "10100" ELSE '0';
 
 end behave;
 

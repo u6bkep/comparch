@@ -14,6 +14,9 @@ add wave MemWrite
 add wave -hex ReadData2
 add wave -hex the_registers/registers instruction_memory/memory data_memory/memory
 
+add wave pcWE
+add wave -position end  sim:/singlecycle/cache_memory/cacheController/WE
+
 # 300-ns, 50% duty cycle clock
 force clock 1 0, 0 150 ns -repeat 300 ns
 ##########
