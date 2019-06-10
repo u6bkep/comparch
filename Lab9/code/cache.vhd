@@ -12,7 +12,7 @@ end cache;
 
 
 architecture behavior of cache is
-signal validIn, WE, pcEnable, validOut: bit;
+signal validIn, WE, validOut: bit;
 signal tagIn, tagOut: bit_vector(9 downto 0);
 signal imDataIn: bit_vector(31 downto 0);
 signal indexOut: bit_vector(3 downto 0);
@@ -45,7 +45,7 @@ component cacheM
 
 begin 
     cacheController: cacheC
-    port map(clk, validIn, tagIn, pcAddress, imDataIn, 
+    port map(clk, validIn, tagIn, imDataIn, pcAddress,
       WE, pcEnable, indexOut, tagOut, instructionAddress, cpu );
 
     cacheMemory: cacheM
