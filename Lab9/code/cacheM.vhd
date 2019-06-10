@@ -40,8 +40,7 @@ begin  -- behave
     begin
         -- if rising edge of clock and WE, then write locations
         if clk = '1' and WE = '1' then
-        memory(intAddress)  <= '1' & data_R;              
-
+        memory(intAddress)  <= '1' & data_W;
         end if;
     end process;
         

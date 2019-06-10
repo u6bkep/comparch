@@ -4,21 +4,30 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
 
 entity cacheC is
-    port (clk, validIn: in bit;
-    	tagIn: in bit_vector(9 downto 0);
-        instrIn, imDataIn: in bit_vector(31 downto 0);
-        
-     WE, pcEnableOut: out bit;
-     indexOut: out bit_vector(3 downto 0);
-     tagOut: out bit_vector(9 downto 0);             
-    instrucOut, imData : out bit_vector(31 downto 0));
+    port (clk           : in bit;
+          cacheM_data_R : in bit_vector(42 downto 0);
+          current_PC    : in bit_vector(31 downto 0);
+          iMem_data     : in bit_vector(31 downto 0);
+
+          cacheM_Address: out bit_vector(3 downto 0);
+          cacheM_data_W : out bit_vector(41 downto 0);
+          instruction   : out bit_vector(31 downto 0);
+          iMem_address  : out bit_vector(31 downto 0);
+          PC_WE         : out bit;
+          cacheM_WE     : out bit);
 end cacheC;
 
 architecture behave of cacheC is
 
 signal tagCompare: bit;
 signal hit : bit;
-signal timer : std_logic_vector(0 to 4):= "00000";  
+signal timer : std_logic_vector(0 to 4):= "00000";
+
+alias valid : bit is cacheM_data_R(43);
+alias tag_R : bit_vector(9 downto 0) is cacheM_data_R(42 downto 32);
+alias data_R: bit_vector(31 downto 0) is cacheM_data_R(31 downto 0);
+alias tag_W : bit_vector(9 downto 0) is cacheM_data_W(42 downto 32):
+alias data_W: bit_vector(31 downto 0)is cacheM_data_W(31 downto 0);
 
 begin  -- behave
 imData <= instrIn;    
