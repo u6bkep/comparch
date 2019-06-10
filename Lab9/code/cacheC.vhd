@@ -25,14 +25,17 @@ imData <= instrIn;
 indexOut <= instrIn(5 downto 2);
 tagOut <= instrIn(15 downto 6);
 
-tagCompare <= '1' when tagIn = instrIn(15 downto 6);
+tagCompare <= '1' when tagIn = instrIn(15 downto 6) else '0';
 hit <= tagCompare and validIn;
 
 instrucOut <= imDataIn when hit = '1' else
 	             "00000000000000000000000000000000";
 
-pcEnableOut <= '1' when hit = '1' else
-	                    '0';
+--pcEnableOut <= '1' when hit = '1' else
+--	                    '0';
+
+pcEnableOut <= not hit;
+
 --process(clk)
 --	begin
 --	if clk = '1' and hit = '1' then

@@ -45,12 +45,26 @@ component cacheM
 
 begin 
     cacheController: cacheC
-    port map(clk, validIn, tagIn, imDataIn, pcAddress,
-      WE, pcEnable, indexOut, tagOut, instructionAddress, cpu );
+    port map(clk         <= clk,
+             validIn     <= validIn,
+             tagIn       <= tagIn,
+             instrIn     <= imDataIn,
+             imDataIn    <= pcAddress,
+             WE          <= WE,
+             pcEnableOut <= pcEnable,
+             indexOut    <= indexOut,
+             tagOut      <= tagOut,
+             instrucOut  <= instructionAddress,
+             imData      <= cpu );
 
     cacheMemory: cacheM
-    port map(indexOut, tagOut, clk, WE,imInsturction, 
-      imDataIn, tagIn, validIn);
+    port map(indexIn     <= indexOut,
+             tagIn       <= tagOut,
+             clk,WE      <= clk,
+             InstIn      <= WE,imInsturction,
+             InstrOut    <= imDataIn,
+             tagOut      <= tagIn,
+             validOut    <= validIn);
  end;   
 
 
