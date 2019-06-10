@@ -32,39 +32,36 @@ component cacheC
 
 component cacheM
    port (
-          indexIn : in bit_vector(3 downto 0);
-          tagIn : in bit_vector(9 downto 0);
-          clk,WE: in bit;
-          InstIn: bit_vector(31 downto 0);
+          clk, WE   : in bit;
+          address   : in bit_vector(3 downto 0);
+          data_W    : in bit_vector(41 downto 0);
 
-
-          InstrOut: out bit_vector(31 downto 0);
-          tagOut: out bit_vector(9 downto 0);
-          validOut: out bit);   
+          data_R    : out bit_vector(42 downto 0));   
    end component;
 
 begin 
     cacheController: cacheC
-    port map(clk         <= clk,
-             validIn     <= validIn,
-             tagIn       <= tagIn,
-             instrIn     <= imDataIn,
-             imDataIn    <= pcAddress,
-             WE          <= WE,
-             pcEnableOut <= pcEnable,
-             indexOut    <= indexOut,
-             tagOut      <= tagOut,
-             instrucOut  <= instructionAddress,
-             imData      <= cpu );
+    port map(clk         => clk,
+             validIn     => validIn,
+             tagIn       => tagIn,
+             instrIn     => imDataIn,
+             imDataIn    => pcAddress,
+             WE          => WE,
+             pcEnableOut => pcEnable,
+             indexOut    => indexOut,
+             tagOut      => tagOut,
+             instrucOut  => instructionAddress,
+             imData      => cpu );
 
     cacheMemory: cacheM
-    port map(indexIn     <= indexOut,
-             tagIn       <= tagOut,
-             clk,WE      <= clk,
-             InstIn      <= WE,imInsturction,
-             InstrOut    <= imDataIn,
-             tagOut      <= tagIn,
-             validOut    <= validIn);
+    port map(indexIn     => indexOut,
+             tagIn       => tagOut,
+             clk         => clk,
+             WE          => WE,
+             InstIn      => imInsturction,
+             InstrOut    => imDataIn,
+             tagOut      => tagIn,
+             validOut    => validIn);
  end;   
 
 
