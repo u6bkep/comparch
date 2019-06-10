@@ -23,21 +23,27 @@ signal tagCompare: bit;
 signal hit : bit;
 signal timer : std_logic_vector(0 to 4):= "00000";
 
-alias valid : bit is cacheM_data_R(43);
-alias tag_R : bit_vector(9 downto 0) is cacheM_data_R(42 downto 32);
+alias valid : bit is cacheM_data_R(42);
+alias tag_R : bit_vector(9 downto 0) is cacheM_data_R(41 downto 32);
 alias data_R: bit_vector(31 downto 0) is cacheM_data_R(31 downto 0);
-alias tag_W : bit_vector(9 downto 0) is cacheM_data_W(42 downto 32):
+alias tag_W : bit_vector(9 downto 0) is cacheM_data_W(41 downto 32);
 alias data_W: bit_vector(31 downto 0)is cacheM_data_W(31 downto 0);
 alias tag_PC: bit_vector(9 downto 0) is current_PC(15 downto 6);
+alias index : bit_vector(3 downto 0) is current_PC(5 downto 2);
+
 begin  -- behave
 
-tag_w <= tag_PC;
-tagCompare <= '1' when tag_R = tag_w;
+tag_W <= tag_PC;
+tagCompare <= '1' when tag_R = tag_PC;
 hit <= (valid and tagCompare);
 
 instruction <=  data_R when hit = '1' else
                      "00000000000000000000000000000000";
 PC_WE <= not hit;
+
+cacheM_Address <= index;
+data_W <= iMem_data;
+iMem_address <= current_PC;
 
 --instrucOut <= imDataIn when hit = '1' else
 	--             "00000000000000000000000000000000";

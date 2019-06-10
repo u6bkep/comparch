@@ -259,10 +259,10 @@ package mipspack is
     --instruction memory cache
     component cache
     port(clk: in bit;
-           pcAddress, imInsturction : in bit_vector(31 downto 0);
+           current_PC, iMem_data : in bit_vector(31 downto 0);
           
-           instructionAddress,cpu: out bit_vector(31 downto 0);
-           pcEnable : out bit);
+           iMem_address, instruction: out bit_vector(31 downto 0);
+           PC_WE : out bit);
     end component;
 
 end mipspack;
