@@ -19,7 +19,8 @@ package mipspack is
     component pc
 	port (clk : in bit;                     -- clock
 	      d : in bit_vector(31 downto 0);   -- data in
-	      q : out bit_vector(31 downto 0)); -- data out
+	      q : out bit_vector(31 downto 0); -- data out
+          WE : in bit);
     end component;
 
     -- Add component 
@@ -253,6 +254,15 @@ package mipspack is
 	      c : out bit_vector(3 downto 1);   -- intermediate carry outputs
 	      c4 : out bit;  		        -- overall carry out
 	      gout,pout : out bit);  	        -- group generate and propagate
+    end component;
+
+    --instruction memory cache
+    component cache
+    port(clk: in bit;
+           current_PC, iMem_data : in bit_vector(31 downto 0);
+          
+           iMem_address, instruction: out bit_vector(31 downto 0);
+           PC_WE : out bit);
     end component;
 
 end mipspack;
